@@ -18,3 +18,10 @@ command /return:
 			message "@{servertag} 1..."
 			wait 1 second
 			teleport player to {death_locations.%player%}
+
+command /ping:
+    description: tells a player their ping to the server
+    executable by: players
+    aliases: /lag
+    trigger:
+        message "{@servertag} Your ping is %player's ping%."
