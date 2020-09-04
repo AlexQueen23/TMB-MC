@@ -1,0 +1,20 @@
+options:
+    servertag: &6[Server]&a
+
+on death of player:
+	set {death_locations.%player%} to location of player
+	send "{@servertag} Use /back to return to your location." to player
+
+command /return:
+	description: return player to death spot
+	executable by: players
+	aliases: /death, /back
+	trigger:
+		if {death_locations.%player%} is set:
+			message "@{servertag} Returning you to your death location in 3..."
+			wait 1 second
+			message "@{servertag} 2..."
+			wait 1 second
+			message "@{servertag} 1..."
+			wait 1 second
+			teleport player to {death_locations.%player%}
