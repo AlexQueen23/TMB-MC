@@ -1,1 +1,37 @@
-hello am good test skript
+options:
+    servertag: &6[Server]&a
+    worldborder_radius: 7500
+    minX: -{@worldborder_radius}
+    maxX: {@worldborder_radius}
+    minZ: -{@worldborder_radius}
+    maxZ: {@worldborder_radius}
+    cooldown: 5 seconds
+    valid_worlds: "world" # or "world_nether"
+    InvalidWorldMsg: "{@servertag} You cannot use /rtp in this world."
+
+command /rtp:
+    description: Randomly teleports a player to a different spot within the world border.
+    aliases: /randomtp, /wild, /random
+    executable by: players
+    trigger:
+        if world is not {@valid_worlds}:
+            send "{@InvalidWorldMsg}"
+        else:
+            if difference between {cooldowns::rtpCD.%player%} and now < {@cooldown}:
+                send "{@servertag} You must wait &6%difference between {cooldowns::rtpCD.%player%} and now% &amore seconds to /rtp again."
+            else:
+                set {_loc.prertp.%player%} to player's location
+                while player's location is {_loc.prertp.%player%}:
+                    set {_x} to random number between {@minX} and {@maxX}
+                    set {_z} to random number between {@minZ} and {@maxZ}
+                    set {_loc.postrtp.%player%} to location at {_x}, 0, {_z}
+                    loop blocks above {_loc.postrtp.%player%}:
+                        if loop-block and block above loop-block are air:
+                            if block under loop-block is not lava or water or air:
+                                set {_loc.postrtp.%player%} to location of loop-block
+                                teleport player to {_loc.postrtp.%player%}
+                                if light level at player <= 2:
+                                    set block at player to ground torch
+                                set {cooldowns::rtpCD.%player%} to now
+                                stop loop
+                    wait 5 ticks
