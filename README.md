@@ -4,5 +4,5 @@
 
 #### Current Commands (Hyperlinked to source):
 ##### - [/rtp - Random Teleport](./Skripts/rtp.sk)
-##### -
-##### - 
+##### - [/spawn - Spawn TP and Spawn Management](./Skripts/spawn.sk)
+##### - [/back - Return to death point](./Skripts/server_management.sk)
