@@ -1,0 +1,19 @@
+options:
+	spawncoords: 224, 69, -207
+	spawntag: &6[SpawnWarp]&a
+	servertag: &6[Server]&a
+
+command /spawn:
+	description: Warps player to world spawn
+	aliases: /warp spawn, /spwn
+	executable by: players
+	trigger:
+		set {_spawn} to the location at {@spawncoords}
+		message "{@spawntag} Teleporting you to spawn ( {@spawncoords} ) in 3..."
+		wait 1 second
+		message "{@spawntag} 2..."
+		wait 1 second
+		message "{@spawntag} 1..."
+		wait 1 second
+		teleport player to {_spawn}
+		broadcast "{@spawntag} Successfully teleported %player% to Spawn!"
